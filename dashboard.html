@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · CampusFlow</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <a href="dashboard.html" class="sidebar__logo" title="Reload Dashboard" style="text-decoration:none;">
+      <img src="assets/img/Philcst.png" alt="PhilCST Logo" class="sidebar__logo-img">
+      <span class="sidebar__logo-text">PhilCST</span>
+    </a>
+
+    <!-- ---- Admin nav ---- -->
+    <div data-role-only="admin">
+      <div class="sidebar__section-label">Admin</div>
+      <ul class="nav-list">
+        <li><a href="#" class="nav-item" data-view="admin-overview" data-title="Overview" data-subtitle="Enrollment activity across all programs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="label">Overview</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="admin-students" data-title="Student Management" data-subtitle="Search, filter, and manage student records">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="label">Students</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="admin-analytics" data-title="Analytics" data-subtitle="Enrollment trends and program distribution">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          <span class="label">Analytics</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="admin-attendance" data-title="Attendance" data-subtitle="Daily attendance records across sections">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+          <span class="label">Attendance</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="admin-settings" data-title="Settings" data-subtitle="System and account preferences">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="label">Settings</span>
+        </a></li>
+      </ul>
+    </div>
+
+    <!-- ---- Student nav ---- -->
+    <div data-role-only="student">
+      <div class="sidebar__section-label">Student</div>
+      <ul class="nav-list">
+        <li><a href="#" class="nav-item" data-view="student-profile" data-title="Profile Overview" data-subtitle="Your academic summary at a glance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <span class="label">Profile</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="student-curriculum" data-title="Curriculum" data-subtitle="Enrolled subjects by year and semester">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span class="label">Curriculum</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="student-grades" data-title="Grades &amp; Progress" data-subtitle="Track completed and ongoing coursework">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <span class="label">Grades</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="student-attendance" data-title="Attendance" data-subtitle="Your attendance record this term">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+          <span class="label">Attendance</span>
+        </a></li>
+        <li><a href="#" class="nav-item" data-view="student-settings" data-title="Settings" data-subtitle="Account and notification preferences">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="label">Settings</span>
+        </a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar__spacer"></div>
+
+    <button class="sidebar__collapse-btn" id="collapseBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 19l-7-7 7-7M18 19l-7-7 7-7"/></svg>
+      <span class="label">Collapse</span>
+    </button>
+  </aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="main-col">
+
+    <!-- ---- Topbar ---- -->
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+        <div class="topbar__title">
+          <h1 id="pageTitle">Overview</h1>
+          <p id="pageSubtitle">Welcome back</p>
+        </div>
+      </div>
+      <div class="topbar__right">
+        <!-- Live Clock -->
+        <div id="topbarClock" style="font-size:12.5px; font-weight:600; color:var(--ink-soft); background:var(--surface); padding:6px 12px; border-radius:var(--r-pill, 999px); border:1px solid var(--border); display:flex; align-items:center; gap:6px; white-space:nowrap;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;color:var(--accent);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="topbarClockText">--:--:-- --</span>
+        </div>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <div class="notif-wrapper" style="position:relative;">
+          <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="dot" id="notifDot" style="display:none;"></span>
+          </button>
+          <div class="notif-dropdown" id="notifDropdown" style="display:none;">
+            <div class="notif-header">
+              <span>Notifications</span>
+              <button class="notif-clear-btn" id="clearNotifsBtn">Clear all</button>
+            </div>
+            <div class="notif-list" id="notifList">
+              <div class="notif-empty">No new notifications</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-chip" id="userChip" style="cursor:pointer;" title="Click to view and edit profile">
+          <div class="avatar" data-user-initials>—</div>
+          <div class="user-chip__info">
+            <div class="name" data-user-name>—</div>
+            <div class="role" data-user-role>—</div>
+          </div>
+        </div>
+        <button class="logout-btn" data-logout>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- ---- Content ---- -->
+    <main class="content">
+
+      <!-- ============ ADMIN: OVERVIEW ============ -->
+      <section class="view" id="view-admin-overview" data-role-only="admin">
+        <div class="stat-grid" id="adminStatGrid"></div>
+
+        <div class="panel-grid-2">
+          <div class="panel">
+            <div class="panel__head">
+              <div><h3>Recent Enrollment Activity</h3><p>Last 8 months, all programs</p></div>
+            </div>
+            <div class="bar-chart" id="enrollmentBarChart"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__head">
+              <div><h3>Students by Program</h3><p>Current term distribution</p></div>
+            </div>
+            <div class="donut-wrap">
+              <div class="donut" id="programDonut"></div>
+              <div class="legend" id="programLegend"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__head">
+            <div><h3>Newest Records</h3><p>Most recently added students</p></div>
+            <a href="#" class="btn-ghost nav-item" data-view="admin-students" style="display:inline-flex;width:auto;color:var(--accent);border:none;padding:0;">View all →</a>
+          </div>
+          <div class="table-wrap" id="rosterPreviewWrap">
+            <table class="data-table">
+              <thead><tr><th>Student</th><th>ID No.</th><th>Program</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><div class="cell-user"><div class="avatar-sm">AM</div><div class="meta"><div class="full-name">Alexa Marquez</div><div class="sub">alexa.marquez@student.edu</div></div></div></td><td>00014087</td><td>BSCOME</td><td><span class="badge enrolled">Enrolled</span></td></tr>
+                <tr><td><div class="cell-user"><div class="avatar-sm">JD</div><div class="meta"><div class="full-name">Josh Dela Cruz</div><div class="sub">josh.delacruz@student.edu</div></div></div></td><td>00000221</td><td>BSECE</td><td><span class="badge enrolled">Enrolled</span></td></tr>
+                <tr><td><div class="cell-user"><div class="avatar-sm">BF</div><div class="meta"><div class="full-name">Bea Fernandez</div><div class="sub">bea.fernandez@student.edu</div></div></div></td><td>00000998</td><td>BSCE</td><td><span class="badge pending">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ADMIN: STUDENT MANAGEMENT ============ -->
+      <section class="view" id="view-admin-students" data-role-only="admin">
+        <div class="view-head">
+          <button class="btn-accent" id="addStudentBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Student
+          </button>
+        </div>
+
+        <div class="panel">
+          <div class="toolbar">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="rosterSearch" placeholder="Search by name, ID, or email…">
+            </div>
+            <select class="select-filter" id="rosterProgramFilter">
+              <option value="all">All Programs</option>
+              <option value="BSCE">BSCE</option>
+              <option value="BSCOME">BSCOME</option>
+              <option value="BSEE">BSEE</option>
+              <option value="BSECE">BSECE</option>
+              <option value="BSME">BSME</option>
+            </select>
+          </div>
+
+          <div class="table-wrap" id="rosterTableWrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>Student</th><th>ID Number</th><th>Program</th><th>Year</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="rosterBody"></tbody>
+            </table>
+          </div>
+
+          <div class="empty-state" id="rosterEmpty" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <h4>No students found</h4>
+            <p>Try a different search term or program filter.</p>
+          </div>
+
+          <div class="table-pagination">
+            <span>Showing 8 of 1,284 students</span>
+            <div class="pagination-btns">
+              <button aria-label="Previous page">‹</button>
+              <button class="active">1</button>
+              <button>2</button>
+              <button>3</button>
+              <button aria-label="Next page">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ADMIN: ANALYTICS ============ -->
+      <section class="view" id="view-admin-analytics" data-role-only="admin">
+        <div class="stat-grid">
+          <div class="stat-card" style="--icon-tint:var(--accent-soft);--icon-color:var(--accent)">
+            <div class="stat-card__top"><div class="stat-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div></div>
+            <div class="stat-card__value">18.4%</div>
+            <div class="stat-card__label">YoY Enrollment Growth</div>
+          </div>
+          <div class="stat-card" style="--icon-tint:var(--success-soft);--icon-color:var(--success)">
+            <div class="stat-card__top"><div class="stat-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div></div>
+            <div class="stat-card__value">92.6%</div>
+            <div class="stat-card__label">Section Fill Rate</div>
+          </div>
+          <div class="stat-card" style="--icon-tint:var(--warning-soft);--icon-color:var(--warning)">
+            <div class="stat-card__top"><div class="stat-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div></div>
+            <div class="stat-card__value">2.1 days</div>
+            <div class="stat-card__label">Avg. Approval Time</div>
+          </div>
+        </div>
+
+        <div class="panel-grid-2">
+          <div class="panel">
+            <div class="panel__head"><div><h3>Enrollment Trend</h3><p>Weekly momentum, last 10 weeks</p></div></div>
+            <div class="sparkline-row" id="sparklineChart"></div>
+          </div>
+          <div class="panel">
+            <div class="panel__head"><div><h3>Program Distribution</h3><p>Share of total headcount</p></div></div>
+            <div class="donut-wrap">
+              <div class="donut" style="background:conic-gradient(var(--accent) 0% 27%, var(--success) 27% 51%, var(--warning) 51% 68%, var(--danger) 68% 88%, var(--violet-500) 88% 100%)"></div>
+              <div class="legend">
+                <div class="legend-item"><span class="legend-swatch" style="background:var(--accent)"></span>BSCOME</div>
+                <div class="legend-item"><span class="legend-swatch" style="background:var(--success)"></span>BSCE</div>
+                <div class="legend-item"><span class="legend-swatch" style="background:var(--warning)"></span>BSECE</div>
+                <div class="legend-item"><span class="legend-swatch" style="background:var(--danger)"></span>BSEE</div>
+                <div class="legend-item"><span class="legend-swatch" style="background:var(--violet-500)"></span>BSME</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ADMIN: ATTENDANCE ============ -->
+      <section class="view" id="view-admin-attendance" data-role-only="admin">
+        <div class="panel">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+            <h4>Attendance module coming soon</h4>
+            <p>Section-by-section attendance tracking will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ADMIN: SETTINGS ============ -->
+      <section class="view" id="view-admin-settings" data-role-only="admin">
+        <div class="panel">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <h4>Settings coming soon</h4>
+            <p>Account and system preferences will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STUDENT: PROFILE ============ -->
+      <section class="view" id="view-student-profile" data-role-only="student">
+        <div id="studentStatusBanner" style="display:none; margin-bottom:20px; padding:16px 20px; border-radius:var(--r-lg); display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-sm);"></div>
+        <div class="stat-grid" id="studentStatGrid"></div>
+
+        <div class="panel">
+          <div class="profile-card" style="justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
+              <div class="avatar-lg" data-profile-initials>—</div>
+              <div class="profile-meta">
+                <h3 data-profile-name style="margin:0 0 4px 0;">—</h3>
+                <p id="studentStatusSub" style="margin-top:4px;">Currently enrolled — check your curriculum tab for full subject load.</p>
+                <span class="id-tag" data-profile-id>—</span>
+              </div>
+            </div>
+            <button class="btn-accent" id="openEditProfileBtn" style="margin-top:10px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit Profile
+            </button>
+          </div>
+          <div class="detail-grid" id="profileDetailGrid"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__head"><div><h3>Overall Program Progress</h3><p>Based on completed units toward your curriculum</p></div></div>
+          <div class="progress-track"><div class="progress-fill" id="overallProgressFill"></div></div>
+          <p style="margin-top:10px;font-size:12.5px;" id="overallProgressLabel"></p>
+        </div>
+      </section>
+
+      <!-- Modal: View Student Record (Admin) -->
+      <div class="modal-overlay" id="adminViewStudentModal" data-role-only="admin" style="display:none;">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <h3>Student Details</h3>
+              <p style="font-size:12.5px; color:var(--ink-soft); margin-top:2px;">Academic profile and information</p>
+            </div>
+            <button class="modal-close" id="closeAdminViewModal">&times;</button>
+          </div>
+          <div id="adminViewStudentBody" style="display:flex; flex-direction:column; gap:12px;"></div>
+          <div style="display:flex; justify-content:flex-end; margin-top:16px; padding-top:12px; border-top:1px solid var(--border);">
+            <button type="button" class="btn-accent" id="closeAdminViewBtn">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Edit Student Record (Admin) -->
+      <div class="modal-overlay" id="adminEditStudentModal" data-role-only="admin" style="display:none;">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <h3>Edit Student Record</h3>
+              <p style="font-size:12.5px; color:var(--ink-soft); margin-top:2px;">Update student details and academic status</p>
+            </div>
+            <button class="modal-close" id="closeAdminEditModal">&times;</button>
+          </div>
+          <form id="adminEditStudentForm" style="display:flex; flex-direction:column; gap:14px;">
+            <input type="hidden" id="adminEditId">
+            <div class="modal-field">
+              <label for="adminEditName" class="modal-label">Student Name</label>
+              <input type="text" id="adminEditName" class="modal-input" required>
+            </div>
+            <div class="modal-field">
+              <label for="adminEditEmail" class="modal-label">Email Address</label>
+              <input type="email" id="adminEditEmail" class="modal-input" required>
+            </div>
+            <div class="modal-field">
+              <label for="adminEditProgram" class="modal-label">Program</label>
+              <select id="adminEditProgram" class="modal-input" required>
+                <option value="BSCE">BSCE</option>
+                <option value="BSCOME">BSCOME</option>
+                <option value="BSEE">BSEE</option>
+                <option value="BSECE">BSECE</option>
+                <option value="BSME">BSME</option>
+              </select>
+            </div>
+            <div class="modal-field">
+              <label for="adminEditYear" class="modal-label">Year Level</label>
+              <input type="number" id="adminEditYear" class="modal-input" min="1" max="5" required>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:12px; padding-top:14px; border-top:1px solid var(--border);">
+              <button type="button" class="btn-ghost" id="cancelAdminEditBtn">Cancel</button>
+              <button type="submit" class="btn-accent">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal: Edit Profile (Student Only) -->
+      <div class="modal-overlay" id="editProfileModal" data-role-only="student" style="display:none;">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <h3>Edit Student Profile</h3>
+              <p style="font-size:12.5px; color:var(--ink-soft); margin-top:2px;">Update your personal contact details and email verification</p>
+            </div>
+            <button class="modal-close" id="closeEditProfileBtn">&times;</button>
+          </div>
+          <form id="editProfileForm" style="display:flex; flex-direction:column; gap:14px; max-height:75vh; overflow-y:auto; padding-right:4px;">
+            <div class="modal-field">
+              <label for="editFullName" class="modal-label">Full Name</label>
+              <input type="text" id="editFullName" class="modal-input" placeholder="Alexa Marquez">
+            </div>
+            <div class="modal-field">
+              <label for="editGuardian" class="modal-label">Mother / Guardian Name</label>
+              <input type="text" id="editGuardian" class="modal-input" placeholder="Maria Teresa Marquez">
+            </div>
+            <div class="modal-field">
+              <label for="editPhone" class="modal-label">Phone Number</label>
+              <input type="tel" id="editPhone" class="modal-input" placeholder="+63 912 345 6789">
+            </div>
+            <div class="modal-field">
+              <label for="editAddress" class="modal-label">Home Address</label>
+              <input type="text" id="editAddress" class="modal-input" placeholder="123 Mabini St., Dagupan City, Pangasinan">
+            </div>
+            <div class="modal-field">
+              <label for="editGmail" class="modal-label">Gmail Address</label>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <input type="email" id="editGmail" class="modal-input" style="flex:1;">
+                <button type="button" class="btn-ghost" id="verifyGmailBtn" style="white-space:nowrap; padding:10px 14px;">
+                  Verify Gmail
+                </button>
+              </div>
+              <div id="gmailVerifyStatus" style="font-size:12px; margin-top:4px; min-height:18px;"></div>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:8px; padding-top:14px; border-top:1px solid var(--border);">
+              <button type="button" class="btn-ghost" id="cancelEditProfileBtn">Cancel</button>
+              <button type="submit" class="btn-accent">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal: Add New Student (Admin) -->
+      <div class="modal-overlay" id="adminAddStudentModal" data-role-only="admin" style="display:none;">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <h3>Add New Student Record</h3>
+              <p style="font-size:12.5px; color:var(--ink-soft); margin-top:2px;">Register a new student into the system</p>
+            </div>
+            <button class="modal-close" id="closeAdminAddModal">&times;</button>
+          </div>
+          <form id="adminAddStudentForm" style="display:flex; flex-direction:column; gap:14px;">
+            <div class="modal-field">
+              <label for="adminAddNumber" class="modal-label">Student ID Number (8 digits starting with 000)</label>
+              <input type="text" id="adminAddNumber" class="modal-input" placeholder="e.g. 00012345" maxlength="8" pattern="^000[0-9]{5}$" title="Must be exactly 8 digits starting with 000" required>
+            </div>
+            <div class="modal-field">
+              <label for="adminAddName" class="modal-label">Full Name</label>
+              <input type="text" id="adminAddName" class="modal-input" placeholder="e.g. Juan Dela Cruz" required>
+            </div>
+            <div class="modal-field">
+              <label for="adminAddEmail" class="modal-label">Email Address</label>
+              <input type="email" id="adminAddEmail" class="modal-input" placeholder="juan.delacruz@gmail.com" required>
+            </div>
+            <div class="modal-field">
+              <label for="adminAddProgram" class="modal-label">Program</label>
+              <select id="adminAddProgram" class="modal-input" required>
+                <option value="BSCE">BSCE</option>
+                <option value="BSCOME" selected>BSCOME</option>
+                <option value="BSEE">BSEE</option>
+                <option value="BSECE">BSECE</option>
+                <option value="BSME">BSME</option>
+              </select>
+            </div>
+            <div class="modal-field">
+              <label for="adminAddYear" class="modal-label">Year Level</label>
+              <input type="number" id="adminAddYear" class="modal-input" min="1" max="5" value="1" required>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:12px; padding-top:14px; border-top:1px solid var(--border);">
+              <button type="button" class="btn-ghost" id="cancelAdminAddBtn">Cancel</button>
+              <button type="submit" class="btn-accent">Add Student</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal: Prerequisite Path Weighted Graph -->
+      <div class="modal-overlay" id="prereqGraphModal" data-role-only="student" style="display:none;">
+        <div class="modal-card" style="max-width:650px;">
+          <div class="modal-header">
+            <div>
+              <h3>Prerequisite Path Weighted Graph</h3>
+              <p style="font-size:12.5px; color:var(--ink-soft); margin-top:2px;">Course dependency DAG and credit weight visualization</p>
+            </div>
+            <button class="modal-close" id="closePrereqGraphModal">&times;</button>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); padding:20px; text-align:center;">
+            <div style="display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:16px;">
+              <div style="padding:12px 18px; background:var(--card); border:1px solid var(--border); border-radius:var(--r-sm);">
+                <div style="font-weight:700; color:var(--accent);">CS101</div>
+                <div style="font-size:11px; color:var(--ink-soft);">Intro Programming (3u)</div>
+              </div>
+              <div style="color:var(--accent); font-weight:700;">➔ [Weight: 3] ➔</div>
+              <div style="padding:12px 18px; background:var(--card); border:1px solid var(--accent); border-radius:var(--r-sm);">
+                <div style="font-weight:700; color:var(--accent);">CS211</div>
+                <div style="font-size:11px; color:var(--ink-soft);">Data Structures (4u)</div>
+              </div>
+              <div style="color:var(--accent); font-weight:700;">➔ [Weight: 4] ➔</div>
+              <div style="padding:12px 18px; background:var(--card); border:1px solid var(--border); border-radius:var(--r-sm);">
+                <div style="font-weight:700; color:var(--accent);">CS221</div>
+                <div style="font-size:11px; color:var(--ink-soft);">DBMS (3u)</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; margin-top:16px; padding-top:12px; border-top:1px solid var(--border);">
+            <button type="button" class="btn-accent" id="closePrereqGraphBtn">Close Graph</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ STUDENT: CURRICULUM ============ -->
+      <section class="view" id="view-student-curriculum" data-role-only="student">
+        <div class="view-head" style="justify-content:space-between; width:100%;">
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <select class="select-filter" id="curriculumSortSelect">
+              <option value="default">Sort by Default</option>
+              <option value="code">Sort by Course Code</option>
+              <option value="units">Sort by Course Units</option>
+            </select>
+            <button class="btn-ghost" id="openPrereqGraphBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              View Prerequisite Graph
+            </button>
+            <button class="btn-ghost" id="submitEnrollmentQueueBtn" style="color:var(--accent); border-color:var(--accent);">
+              Submit Enrollment Request Queue
+            </button>
+          </div>
+          <button class="btn-ghost">Print Curriculum Checklist</button>
+        </div>
+        <div id="curriculumWrap"></div>
+      </section>
+
+      <!-- ============ STUDENT: GRADES ============ -->
+      <section class="view" id="view-student-grades" data-role-only="student">
+        <div class="panel-grid-2">
+          <div class="panel">
+            <div class="panel__head"><div><h3>Subject Grades</h3><p>Current and completed coursework</p></div></div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Code</th><th>Description</th><th>Units</th><th>Term</th><th>Grade</th><th>Status</th></tr></thead>
+                <tbody id="gradesBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel__head"><div><h3>Grade Distribution</h3><p>Completed subjects only</p></div></div>
+            <div class="donut-wrap">
+              <div class="donut" id="gradeDonut"></div>
+              <div class="legend" id="gradeLegend"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STUDENT: ATTENDANCE ============ -->
+      <section class="view" id="view-student-attendance" data-role-only="student">
+        <div class="panel">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+            <h4>Attendance module coming soon</h4>
+            <p>Your per-subject attendance will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STUDENT: SETTINGS ============ -->
+      <section class="view" id="view-student-settings" data-role-only="student">
+        <div class="panel">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <h4>Settings coming soon</h4>
+            <p>Account and notification preferences will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/mock-data.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/admin-views.js"></script>
+<script src="js/student-views.js"></script>
+</body>
+</html>

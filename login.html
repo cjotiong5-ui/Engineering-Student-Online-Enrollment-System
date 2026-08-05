@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In · CampusFlow Enrollment Portal</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+  <div class="login-shell">
+
+    <!-- ============ HERO SIDE ============ -->
+    <div class="login-hero">
+      <img src="assets/img/32nd.jpg" alt="PhilCST Campus" class="login-hero__bg">
+      <div class="login-hero__scrim" aria-hidden="true"></div>
+
+      <a href="index.html" class="login-hero__brand" title="Go to Home / Landing Page" style="text-decoration:none;">
+        <img src="assets/img/Philcst.png" alt="Engineering Student Online Enrollment System Logo"
+          class="login-hero__logo">
+        <span>PhilCST</span>
+      </a>
+
+      <!-- Spacer pushes copy toward lower-middle of panel -->
+      <div class="login-hero__spacer" aria-hidden="true"></div>
+
+      <div class="login-hero__copy">
+        <span class="login-hero__eyebrow">Enrollment &amp; Curriculum System</span>
+        <h1>Where your future<br><span class="gradient-text">takes off.</span></h1>
+        <p class="login-hero__lead">Manage your enrollment with ease across BSCE, BSCOMPE, BSEE, BSECE, and BSME.</p>
+
+        <!-- Feature Badges Grid -->
+        <div class="hero-feature-grid">
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z" />
+                <path d="M6 12v5c0 1 2.5 3 6 3s6-2 6-3v-5" />
+              </svg>
+            </div>
+            <div>
+              <strong>5 Programs</strong>
+              <span>Engineering Degrees</span>
+            </div>
+          </div>
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div>
+              <strong>Real-time</strong>
+              <span>Status &amp; Evaluation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-hero__footer">
+        <span>© 2026 CampusFlow</span>
+        <span>Registrar's Office</span>
+        <span>Help Desk</span>
+      </div>
+    </div>
+
+    <!-- ============ FORM SIDE ============ -->
+    <div class="login-form-side">
+      <div class="login-card">
+        <div class="login-card__logo">
+          <img src="assets/img/Philcst.png" alt="Engineering Student Online Enrollment System Logo">
+          <span>Engineering Student Online Enrollment System</span>
+        </div>
+
+        <div class="login-card__head">
+          <h2>Welcome back</h2>
+          <p>Sign in to continue to your dashboard.</p>
+        </div>
+
+        <div class="role-select" role="tablist" aria-label="Select account type">
+          <button type="button" class="active" data-role="student" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z" />
+              <path d="M6 12v5c0 1 2.5 3 6 3s6-2 6-3v-5" />
+            </svg>
+            Student
+          </button>
+          <button type="button" data-role="admin" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2 2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
+            Admin
+          </button>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@student.edu" autocomplete="email" required>
+            <div class="field-error" id="emailError" role="alert" aria-live="polite"></div>
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <input type="password" id="password" name="password" placeholder="Enter your password"
+                autocomplete="current-password" required>
+              <button type="button" class="toggle-pw" id="togglePw" aria-label="Show password">
+                <!-- Eye open (default — password hidden) -->
+                <svg class="eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <!-- Eye closed (password visible) -->
+                <svg class="eye-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  style="display:none">
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+            <div class="field-error" id="pwError" role="alert" aria-live="polite"></div>
+          </div>
+
+          <div class="login-row">
+            <label class="remember">
+              <input type="checkbox" name="remember">
+              Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary" id="submitBtn">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="btn-label">Sign In</span>
+          </button>
+        </form>
+
+        <div class="demo-hint" aria-label="Demo credentials">
+          <span class="demo-hint__row">Student&nbsp;&mdash;&nbsp;<b>alexa.marquez@gmail.com</b> (or <b>@student.edu</b>)
+            / student123</span>
+          <span class="demo-hint__row">Admin&nbsp;&mdash;&nbsp;<b>admin@campus.edu</b> / admin123</span>
+        </div>
+
+        <div class="login-foot">
+          Need an account? <a href="#" class="forgot-link">Contact the registrar</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="theme-fab" id="themeFab" aria-label="Toggle dark mode">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  </button>
+
+  <div class="toast-stack" id="toastStack" aria-live="assertive" aria-atomic="true"></div>
+
+  <script src="js/mock-data.js"></script>
+  <script src="js/login.js"></script>
+</body>
+
+</html>

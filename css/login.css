@@ -1,0 +1,764 @@
+/* =========================================================
+   LOGIN PAGE — CampusFlow Enrollment Portal
+   Refactored: Senior-level, no-scroll, single-screen layout
+   Bugs fixed: undefined CSS vars, overflow issues, box-model,
+   spacing jank, bg image crop, field-error gap double-spacing
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   LOCAL TOKEN BRIDGE
+   Define every custom property used on this page so the page
+   is self-contained even if base.css is extended or swapped.
+   BUG FIX: --violet-500, --violet-900, --ease were missing
+   and caused silent fallbacks (transparent buttons, no easing).
+   --------------------------------------------------------- */
+:root {
+  /* Purple scale — explicitly defined so gradient & bg never fallback */
+  --violet-500: #7C4FE0;
+  --violet-800: #3A2568;
+  --violet-900: #1A0E35;
+
+  /* Surface tokens — bridged from base.css; redeclared for safety */
+  --card:        #FFFFFF;
+  --surface-alt: var(--surface-dim, #F3F0FA);
+  --border:      var(--line, rgba(90,60,140,0.18));
+
+  /* Shadows */
+  --shadow-sm:   0 2px 8px rgba(43,20,80,0.08);
+  --shadow-md:   0 10px 28px rgba(43,20,80,0.14);
+  --shadow-glow: 0 8px 24px rgba(124,79,224,0.35);
+
+  /* Radii — bridged */
+  --r-sm: var(--radius-sm, 10px);
+  --r-md: var(--radius-md, 14px);
+
+  /* Semantic */
+  --danger:      #E23D5A;
+  --danger-soft: rgba(226,61,90,0.15);
+
+  /* BUG FIX: --ease was never defined locally; all transitions were
+     falling back to "ease" (browser default). Explicit cubic-bezier
+     for consistent, polished motion across both themes. */
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  --t-fast:      0.2s;
+  --t-med:       0.35s;
+  --t-slow:      0.55s;
+
+  /* Glow tints */
+  --accent-glow: rgba(75,46,131,0.32);
+}
+
+/* =========================================================
+   GLOBAL RESET (scope-safe — only within login page context)
+   BUG FIX: Missing box-sizing caused padding to push inputs
+   wider than their container on certain browsers.
+   ========================================================= */
+.login-shell *,
+.login-shell *::before,
+.login-shell *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   SHELL — strict single-screen container
+   BUG FIX: min-height:100vh alone lets content overflow the
+   viewport. height:100vh + overflow:hidden is the lock.
+   ========================================================= */
+.login-shell {
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+/* =========================================================
+   HERO SIDE
+   Strategy: bg image = subtle right-anchored texture only.
+   All decorative graphic text buried via opacity + left-to-right
+   scrim. Content centered vertically. Footer pinned to bottom.
+   ========================================================= */
+.login-hero {
+  position: relative;
+  height: 100%;
+  background: var(--violet-900);
+  overflow: hidden;
+  padding: 36px 52px 36px;
+  display: flex;
+  flex-direction: column;
+  /* Brand at top, copy in true vertical center, footer pinned bottom */
+  justify-content: space-between;
+}
+
+/* ---- Background image ----
+   Anchored to the RIGHT so the "32" circle stays right-edge only.
+   Full-panel height so it fills but never crops awkwardly.
+   Left-to-right scrim (below) does the heavy lifting on opacity.
+   blur(3px) + opacity:0.18 = pure texture, zero readability conflict.
+   ---- */
+.login-hero__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 130%;           /* oversized so right anchor still fills width */
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;   /* anchor graphic to right edge */
+  z-index: 0;
+  opacity: 0.18;         /* so dim it reads as atmospheric texture only */
+  filter: blur(3px);     /* soft blur kills the "32 years" lettering detail */
+}
+
+/* ---- Scrim — horizontal gradient (left heavy → right fade)
+   Left column = near-opaque violet-900 → text always readable.
+   Right edge = partial fade → the blurred image adds subtle depth.
+   No vertical gradient needed because image is already dim + blurred.
+   ---- */
+.login-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(20, 10, 40, 0.96)  0%,    /* left: nearly solid — text lives here */
+    rgba(20, 10, 40, 0.88) 35%,
+    rgba(20, 10, 40, 0.72) 60%,
+    rgba(20, 10, 40, 0.40) 80%,
+    rgba(20, 10, 40, 0.15) 100%    /* right: slight tint over the blurred img */
+  );
+}
+
+/* Noise grain — adds premium texture so panel doesn't read as flat */
+.login-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Accent edge line — visual bridge from hero to form */
+.login-hero::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  right: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(124, 79, 224, 0.45) 35%,
+    rgba(124, 79, 224, 0.45) 65%,
+    transparent
+  );
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ---- Brand mark — top of flex column ---- */
+.login-hero__brand {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.login-hero__logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ---- Spacer removed — justify-content:space-between handles layout.
+   Hero spacer div kept in HTML as a harmless empty node; display:none
+   so it doesn't contribute to flex gap calculations. ---- */
+.login-hero__spacer {
+  display: none;
+}
+
+/* ---- Hero copy — vertically centered by space-between ---- */
+.login-hero__copy {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: heroCopyRise var(--t-slow) var(--ease) 0.15s both;
+}
+
+@keyframes heroCopyRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.login-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #C3B4FD;
+  font-weight: 700;
+  margin-bottom: 22px;
+  background: rgba(124, 79, 224, 0.22);
+  padding: 6px 14px;
+  border-radius: var(--r-pill, 999px);
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  backdrop-filter: blur(8px);
+}
+.login-hero__eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #A78BFA;
+  box-shadow: 0 0 8px #A78BFA;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #A78BFA 0%, #F472B6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-feature-grid {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.hero-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  padding: 12px 18px;
+  border-radius: var(--r-md, 14px);
+  transition: transform var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+}
+.hero-feature-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+}
+.hero-feature-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(124, 79, 224, 0.4), rgba(167, 139, 250, 0.2));
+  color: #C3B4FD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hero-feature-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.hero-feature-item strong {
+  display: block;
+  font-size: 13.5px;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+.hero-feature-item span {
+  font-size: 11.5px;
+  color: #CBD5E1;
+}
+
+/* ---- Footer — pinned to bottom of flex column ---- */
+.login-hero__footer {
+  position: relative;
+  z-index: 3;
+  color: #7B6DAA;
+  font-size: 12px;
+  display: flex;
+  gap: 22px;
+  flex-shrink: 0;
+  /* No margin-top needed — space-between pushes it naturally */
+}
+
+/* =========================================================
+   FORM SIDE
+   BUG FIX: height:100% added so it spans the full grid row.
+   overflow-y:auto handles edge cases on very short screens
+   without breaking the no-scroll requirement on normal ones.
+   ========================================================= */
+.login-form-side {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  background: var(--surface, #F8F6FF);
+}
+
+/* ---- Card ---- */
+.login-card {
+  width: 100%;
+  max-width: 390px;
+  animation: cardRise var(--t-slow) var(--ease) both;
+}
+
+@keyframes cardRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo mark — column orientation for visual centering */
+.login-card__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 22px;
+}
+.login-card__logo img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+}
+.login-card__logo span {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink, #1A0E35);
+  letter-spacing: 0.03em;
+}
+
+/* Heading block */
+.login-card__head {
+  margin-bottom: 22px;
+}
+.login-card__head h2 {
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: var(--ink, #1A0E35);
+  font-family: var(--font-display, 'Syne', sans-serif);
+}
+.login-card__head p {
+  font-size: 13.5px;
+  color: var(--ink-soft, #6B5E8A);
+}
+
+/* ---- Role selector ---- */
+.role-select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 22px;
+  background: var(--surface-alt);
+  padding: 4px;
+  border-radius: var(--r-md);
+}
+
+.role-select button {
+  padding: 10px 0;
+  border-radius: calc(var(--r-md) - 4px);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink-soft, #6B5E8A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background   var(--t-fast) var(--ease),
+    color        var(--t-fast) var(--ease),
+    box-shadow   var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+.role-select button:hover:not(.active) {
+  border-color: var(--border);
+  color: var(--ink, #1A0E35);
+}
+.role-select button svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+.role-select button.active {
+  background: var(--card);
+  color: var(--accent, #7C4FE0);
+  border-color: var(--accent, #7C4FE0);
+  box-shadow: 0 4px 14px rgba(43,20,80,0.14), 0 1px 3px rgba(43,20,80,0.10);
+}
+
+/* ---- Input group
+   BUG FIX: .field-error previously had margin-top:6px while
+   .input-group used gap:7px — this doubled spacing on invalid
+   fields (label→input→error all spaced inconsistently).
+   Solution: gap only, no margin on field-error.
+   ---- */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;          /* single source of truth for vertical spacing */
+  margin-bottom: 16px;
+}
+.input-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft, #6B5E8A);
+  line-height: 1.3;
+}
+
+/* BUG FIX: Added box-sizing:border-box explicitly to override
+   any missing reset — prevents padding from expanding width */
+.input-group input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px 15px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--card, #FFFFFF);
+  color: var(--ink, #1D1B26) !important;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  transition:
+    border-color var(--t-fast) var(--ease),
+    box-shadow   var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease);
+}
+
+/* In dark mode / dark surface login form: input background is dark violet and text is pure crisp white */
+[data-theme="dark"] .input-group input,
+.login-form-side .input-group input {
+  background: #181028 !important;
+  color: #FFFFFF !important;
+  border-color: rgba(124, 79, 224, 0.4) !important;
+}
+
+/* Chrome/Safari autofill override for both light & dark mode */
+.input-group input:-webkit-autofill,
+.input-group input:-webkit-autofill:hover,
+.input-group input:-webkit-autofill:focus,
+.input-group input:-webkit-autofill:active {
+  -webkit-text-fill-color: #FFFFFF !important;
+  -webkit-box-shadow: 0 0 0 1000px #181028 inset !important;
+  box-shadow: 0 0 0 1000px #181028 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.input-group input::placeholder {
+  color: #9485C9 !important;
+  opacity: 0.75;
+}
+.input-group input:focus {
+  outline: none;
+  background: #1D1332 !important;
+  border-color: var(--accent, #7C4FE0) !important;
+  box-shadow: 0 0 0 3.5px rgba(124,79,224,0.3) !important;
+}
+
+/* Password wrapper */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-wrap input {
+  padding-right: 44px;
+}
+.toggle-pw {
+  position: absolute;
+  right: 12px;
+  color: var(--ink-soft, #6B5E8A);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease);
+}
+.toggle-pw:hover { color: var(--accent, #7C4FE0); }
+.toggle-pw svg   { width: 17px; height: 17px; }
+
+/* Inline field error
+   BUG FIX: Removed margin-top:6px — gap on parent handles spacing.
+   min-height keeps layout stable when error appears/disappears. */
+.field-error {
+  font-size: 12px;
+  color: var(--danger);
+  min-height: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition:
+    opacity   var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease);
+}
+.field-error.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.input-group.invalid input {
+  border-color: var(--danger);
+}
+.input-group.invalid input:focus {
+  box-shadow: 0 0 0 3.5px var(--danger-soft);
+}
+
+/* Remember / forgot row */
+.login-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-soft, #6B5E8A);
+  cursor: pointer;
+  user-select: none;
+}
+.remember input {
+  accent-color: var(--accent, #7C4FE0);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.forgot-link {
+  color: var(--accent, #7C4FE0);
+  font-weight: 600;
+  text-decoration: none;
+}
+.forgot-link:hover { text-decoration: underline; }
+
+/* ---- Submit button
+   BUG FIX: --violet-500 was used in gradient but never defined.
+   Now explicitly defined at :root and used here cleanly.
+   ---- */
+.btn-primary {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--accent, #7C4FE0), var(--violet-500));
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-weight: 700;
+  font-size: 14.5px;
+  font-family: var(--font-body, 'Instrument Sans', sans-serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  box-shadow: 0 8px 22px var(--accent-glow);
+  cursor: pointer;
+  transition:
+    transform   var(--t-fast) var(--ease),
+    box-shadow  var(--t-fast) var(--ease),
+    opacity     var(--t-fast) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  pointer-events: none;
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px var(--accent-glow);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px var(--accent-glow);
+}
+.btn-primary:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  display: none;
+  flex-shrink: 0;
+}
+.btn-primary.loading .spinner { display: inline-block; }
+.btn-primary.loading .btn-label { opacity: 0.82; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Demo credentials hint */
+.demo-hint {
+  margin-top: 16px;
+  font-size: 11.5px;
+  color: var(--ink-soft, #6B5E8A);
+  background: var(--accent-soft, rgba(124,79,224,0.08));
+  border: 1px solid var(--accent-soft, rgba(124,79,224,0.15));
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.demo-hint__row { display: block; line-height: 1.6; }
+.demo-hint b { color: var(--accent, #7C4FE0); }
+
+/* Footer */
+.login-foot {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-soft, #6B5E8A);
+}
+
+/* =========================================================
+   THEME FAB
+   ========================================================= */
+.theme-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--card);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  z-index: 50;
+  cursor: pointer;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.theme-fab:hover {
+  transform: scale(1.1) rotate(18deg);
+  box-shadow: 0 12px 28px rgba(43,20,80,0.18);
+}
+.theme-fab svg {
+  width: 19px;
+  height: 19px;
+  color: var(--accent, #7C4FE0);
+}
+
+/* =========================================================
+   TOAST STACK
+   ========================================================= */
+.toast-stack {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  padding: 12px 16px;
+  border-radius: var(--r-sm);
+  background: var(--card);
+  color: var(--ink, #1A0E35);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  border-left: 3px solid var(--accent, #7C4FE0);
+  opacity: 0;
+  transform: translateX(14px);
+  transition:
+    opacity   var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease);
+  max-width: 290px;
+  pointer-events: auto;
+}
+.toast.show  { opacity: 1; transform: translateX(0); }
+.toast--success { border-left-color: var(--mint, #34D399); }
+.toast--error   { border-left-color: var(--danger); }
+
+/* =========================================================
+   RESPONSIVE
+   - 900px:  collapse to single column, hide hero
+   - 480px:  tighten card padding and font sizes
+   - height: clamp-driven scaling prevents overflow on 768px-
+             height laptops (e.g. 1366×768)
+   ========================================================= */
+@media (max-width: 900px) {
+  .login-shell {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  .login-hero { display: none; }
+  .login-form-side {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: visible;
+    padding: 48px 20px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card__logo img { width: 48px; height: 48px; }
+  .login-card__head h2  { font-size: 22px; }
+  .login-card { max-width: 100%; }
+}
+
+/* Tall screens (≥ 900px wide) — clamp vertical padding so the
+   form never feels stranded with too much air on 4K displays */
+@media (min-width: 900px) and (min-height: 900px) {
+  .login-form-side { padding: 48px 24px; }
+  .login-hero      { padding: 48px 60px 52px; }
+}
+
+/* Short laptops (1366×768) — tighten vertical rhythm so nothing overflows */
+@media (min-width: 900px) and (max-height: 768px) {
+  .login-hero           { padding: 28px 48px 28px; }
+  .login-hero__copy h1  { font-size: 30px; }
+  .login-hero__eyebrow  { margin-bottom: 14px; }
+  .login-hero__copy h1  { margin-bottom: 16px; }
+  .login-hero__lead     { font-size: 14px; margin-bottom: 8px; }
+  .login-hero__sub      { font-size: 12.5px; }
+  .login-form-side      { padding: 20px 24px; }
+  .login-card__logo     { margin-bottom: 14px; }
+  .login-card__logo img { width: 46px; height: 46px; }
+  .login-card__head     { margin-bottom: 14px; }
+  .role-select          { margin-bottom: 14px; }
+  .input-group          { margin-bottom: 10px; gap: 5px; }
+  .input-group input    { padding: 11px 14px; }
+  .login-row            { margin-bottom: 14px; }
+  .demo-hint            { margin-top: 12px; }
+  .login-foot           { margin-top: 12px; }
+}

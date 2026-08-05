@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhilCST · Enrollment &amp; Curriculum System</title>
+<link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav__brand">
+    <img src="assets/img/Philcst.png" alt="PhilCST logo" class="nav__mark">
+    PhilCST
+  </a>
+  <div class="nav__links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#stats">Results</a>
+  </div>
+  <a href="login.html" class="nav__cta">Log in</a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero hero--split">
+  <div class="hero__photo" aria-hidden="true">
+    <img src="assets/img/Second-Section.png" alt="">
+    <div class="hero__photo-shape"></div>
+    <div class="hero__photo-overlay"></div>
+  </div>
+
+  <div class="hero__inner hero__inner--split">
+
+    <div class="hero__content">
+      <span class="hero__label">
+        <span class="hero__label-dot"></span>
+        Enrollment &amp; Curriculum System
+      </span>
+
+      <h1 class="hero__headline hero__headline--serif">
+        Your Future<br>
+        <em>Starts</em> here.
+      </h1>
+      <h2 class="hero__school">Philippine College of Science and Technology</h2>
+
+      <p class="hero__desc">
+        Enroll in minutes, track your subjects, and monitor your progress in real time.
+      </p>
+
+      <div class="hero__actions">
+        <a href="login.html" class="hero__cta">
+          Get Started
+          <span class="hero__cta-arrow">→</span>
+        </a>
+        <a href="#how" class="hero__secondary">See how it works</a>
+      </div>
+
+      <div class="hero__proof">
+        <div class="hero__avatars">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <p class="hero__proof-text"><strong>12,000+ students</strong> already enrolled this term</p>
+      </div>
+    </div>
+
+    <div class="hero__media hero__media--split">
+      <div class="card card--floating">
+        <div class="card__glow" aria-hidden="true"></div>
+
+        <div class="card__top">
+          <div class="card__student">
+            <div class="card__avatar"></div>
+            <div>
+              <div class="card__name">Maria Santos</div>
+              <div class="card__id">BS Computer Science · Yr 3</div>
+            </div>
+          </div>
+          <span class="card__status">Enrolled</span>
+        </div>
+
+        <div class="card__ring-row">
+          <svg class="card__ring" viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4B2E83"/>
+                <stop offset="100%" stop-color="#7C4FE0"/>
+              </linearGradient>
+            </defs>
+            <circle class="card__ring-track" cx="32" cy="32" r="28" fill="none" stroke-width="7"/>
+            <circle class="card__ring-progress" cx="32" cy="32" r="28" fill="none" stroke-width="7"/>
+            <text x="32" y="37" text-anchor="middle" class="card__ring-label">83%</text>
+          </svg>
+          <div class="card__ring-meta">
+            <strong>Curriculum progress</strong>
+            <span>124 / 150 units completed</span>
+          </div>
+        </div>
+
+        <div class="card__subjects">
+          <div class="card__subject">
+            Data Structures &amp; Algorithms
+            <span class="card__subject-tag card__subject-tag--done">Passed</span>
+          </div>
+          <div class="card__subject">
+            Database Systems
+            <span class="card__subject-tag card__subject-tag--progress">Ongoing</span>
+          </div>
+          <div class="card__subject">
+            Software Engineering
+            <span class="card__subject-tag card__subject-tag--progress">Ongoing</span>
+          </div>
+        </div>
+
+        <div class="card__float card__float--left">
+          <span class="card__float-icon">✓</span>
+          Prerequisites cleared
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="hero__stats" aria-hidden="false">
+    <div class="hero__stat">
+      <span class="hero__stat-num">30<em>+</em></span>
+      <span class="hero__stat-label">Years of Excellence</span>
+    </div>
+    <div class="hero__stat">
+      <span class="hero__stat-num">12<span class="hero__stat-unit">k</span><em>+</em></span>
+      <span class="hero__stat-label">Alumni Nationwide</span>
+    </div>
+    <div class="hero__stat">
+      <span class="hero__stat-num">7</span>
+      <span class="hero__stat-label">Colleges</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__eyebrow">Why PhilCST</span>
+      <h2 class="section__title">Everything enrollment should be</h2>
+      <p class="section__desc">Built for students and registrars who don't have time for paperwork or guesswork.</p>
+    </div>
+
+    <div class="features__grid">
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
+        </div>
+        <h3 class="feature-card__title">Fast Enrollment</h3>
+        <p class="feature-card__desc">Register for a full term in minutes, with conflicts and prerequisites checked automatically.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M4 19a2 2 0 0 0 2 2h14"/><path d="M8 7h8M8 11h8"/></svg>
+        </div>
+        <h3 class="feature-card__title">Smart Curriculum Tracking</h3>
+        <p class="feature-card__desc">See exactly which subjects you've cleared, which are next, and what's still standing between you and graduation.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>
+        </div>
+        <h3 class="feature-card__title">Real-Time Analytics</h3>
+        <p class="feature-card__desc">Grades, standing, and workload update the moment they change — no refreshing, no waiting on the registrar.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0V4a2 2 0 0 1 2-2Z"/><path d="M12 8v13M6 21h12"/><path d="M4 12h16"/></svg>
+        </div>
+        <h3 class="feature-card__title">Attendance Monitoring</h3>
+        <p class="feature-card__desc">Faculty log attendance per session, and students always know exactly where they stand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= DASHBOARD PREVIEW ================= -->
+<section class="section section--dashboard" id="dashboard">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__eyebrow">Inside the system</span>
+      <h2 class="section__title">One dashboard, your whole academic life</h2>
+      <p class="section__desc">Schedule, grades, attendance, and standing — all in a single view.</p>
+    </div>
+
+    <div class="preview reveal">
+      <div class="preview__frame">
+        <div class="preview__bar">
+          <span class="preview__dot"></span>
+          <span class="preview__dot"></span>
+          <span class="preview__dot"></span>
+        </div>
+        <div class="preview__body">
+          <div class="preview__sidebar">
+            <div class="preview__nav-item preview__nav-item--active">Overview</div>
+            <div class="preview__nav-item">My Schedule</div>
+            <div class="preview__nav-item">Grades</div>
+            <div class="preview__nav-item">Attendance</div>
+            <div class="preview__nav-item">Curriculum Map</div>
+          </div>
+          <div class="preview__main">
+            <div class="preview__stat-row">
+              <div class="preview__stat">
+                <div class="preview__stat-label">Units this term</div>
+                <div class="preview__stat-value">21</div>
+              </div>
+              <div class="preview__stat">
+                <div class="preview__stat-label">Attendance rate</div>
+                <div class="preview__stat-value preview__stat-value--mint">96%</div>
+              </div>
+              <div class="preview__stat">
+                <div class="preview__stat-label">Standing</div>
+                <div class="preview__stat-value">Good</div>
+              </div>
+            </div>
+            <div class="preview__chart" aria-hidden="true">
+              <div class="preview__bar-el" style="height:40%"></div>
+              <div class="preview__bar-el" style="height:65%"></div>
+              <div class="preview__bar-el" style="height:50%"></div>
+              <div class="preview__bar-el" style="height:80%"></div>
+              <div class="preview__bar-el" style="height:60%"></div>
+              <div class="preview__bar-el" style="height:90%"></div>
+              <div class="preview__bar-el" style="height:70%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="stats__grid">
+      <div class="stat reveal">
+        <div class="stat__value" data-count="12400" data-suffix="+">0</div>
+        <div class="stat__label">Students enrolled</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat__value" data-count="21">0</div>
+        <div class="stat__label">Programs offered</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat__value" data-count="97" data-suffix="%">0</div>
+        <div class="stat__label">Enrollment success rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="cta">
+  <div class="container">
+    <div class="cta__card reveal">
+      <div class="cta__glow" aria-hidden="true"></div>
+      <h2 class="cta__title">Start your academic journey today</h2>
+      <p class="cta__desc">Join thousands of PhilCST students managing their entire academic life in one place.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  © 2026 Philippine College of Science and Technology. All rights reserved.
+</footer>
+
+<script>
+  // Keep the landing page visible by default.
+  // Open dashboard.html directly when you want to view the dashboard.
+
+  // Navbar solid-on-scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Scroll-reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.stat__value');
+  const animateCounter = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target).toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterIO.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el => counterIO.observe(el));
+</script>
+</body>
+</html>

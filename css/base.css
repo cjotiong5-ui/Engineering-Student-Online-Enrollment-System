@@ -1,0 +1,209 @@
+/* =========================================================
+   BASE — Design Tokens & Global Reset
+   Engineering College Enrollment Portal
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* --- Color: Violet-Indigo Engineering Palette --- */
+  --ink: #1D1B26;
+  --ink-soft: #4A4658;
+  --surface: #F8F7FC;
+  --surface-alt: #EFEBFA;
+  --card: #FFFFFF;
+  --border: #E4DFF3;
+
+  --violet-900: #241236;
+  --violet-800: #2E1A47;
+  --violet-700: #3D2361;
+  --violet-500: #6438C2;
+  --accent: #7C5CFC;
+  --accent-soft: #EFE8FF;
+  --accent-glow: rgba(124, 92, 252, 0.35);
+
+  --success: #3FC98C;
+  --success-soft: #E4FAF1;
+  --warning: #F5A623;
+  --warning-soft: #FEF3DE;
+  --danger: #F14C6A;
+  --danger-soft: #FDE7EB;
+
+  /* --- Dark mode overrides applied via [data-theme="dark"] --- */
+  --shadow-sm: 0 1px 2px rgba(36, 18, 54, 0.06);
+  --shadow-md: 0 8px 24px rgba(36, 18, 54, 0.08);
+  --shadow-lg: 0 20px 48px rgba(36, 18, 54, 0.14);
+  --shadow-glow: 0 12px 32px var(--accent-glow);
+
+  /* --- Type --- */
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* --- Radius --- */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 150ms;
+  --t-med: 280ms;
+  --t-slow: 480ms;
+
+  --sidebar-w: 264px;
+  --sidebar-w-collapsed: 84px;
+  --topbar-h: 72px;
+}
+
+[data-theme="dark"] {
+  --ink: #F1EEFB;
+  --ink-soft: #B9B2D6;
+  --surface: #17111F;
+  --surface-alt: #1E1730;
+  --card: #221A34;
+  --border: #35294F;
+
+  --accent-soft: #2A2145;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.5);
+}
+
+* , *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--surface);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--t-med) var(--ease), color var(--t-med) var(--ease);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0; color: var(--ink-soft); }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input, select {
+  font-family: var(--font-body);
+}
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+img { max-width: 100%; display: block; }
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Focus visibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--r-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* Utility */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-alt);
+  border-radius: var(--r-sm);
+}
+.skeleton::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(124,92,252,0.14), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* Toast */
+.toast-stack {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  min-width: 240px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastIn var(--t-med) var(--ease);
+  border-left: 4px solid var(--accent);
+}
+.toast.success { border-left-color: var(--success); }
+.toast.error { border-left-color: var(--danger); }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.toast.hide { animation: toastOut var(--t-fast) var(--ease) forwards; }
+@keyframes toastOut {
+  to { opacity: 0; transform: translateX(24px); }
+}
